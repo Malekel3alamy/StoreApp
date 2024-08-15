@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shopping_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.storeapp.ui.fragments.shopping.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment3_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.storeapp.ui.fragments.shopping.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment3"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.storeapp.ui.fragments.shopping.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_cartFragment"
+            app:destination="@id/cartFragment"
+            app:popUpTo="@id/searchFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.storeapp.ui.fragments.shopping.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productInfoFragment"
+        android:name="com.example.storeapp.ui.fragments.ProductInfoFragment"
+        android:label="fragment_product_info"
+        tools:layout="@layout/fragment_product_info" />
+</navigation>

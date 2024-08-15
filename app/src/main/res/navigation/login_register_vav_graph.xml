@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_register_vav_graph"
+    app:startDestination="@id/introductionFragment">
+
+    <fragment
+        android:id="@+id/introductionFragment"
+        android:name="com.example.storeapp.ui.fragments.IntroductionFragment"
+        android:label="fragment_introduction"
+        tools:layout="@layout/fragment_introduction" >
+        <action
+            android:id="@+id/action_introductionFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.storeapp.ui.fragments.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.storeapp.ui.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_shoppingActivity"
+            app:destination="@id/shoppingActivity" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment2"
+        android:name="com.example.storeapp.ui.fragments.shopping.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <activity
+        android:id="@+id/shoppingActivity"
+        android:name="com.example.storeapp.ui.ShoppingActivity"
+        android:label="activity_shopping"
+        tools:layout="@layout/activity_shopping" />
+</navigation>
