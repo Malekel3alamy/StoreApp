@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.storeapp.models.CartProduct
 
-
+/*
 
 @Database(
     entities = [CartProduct::class] ,
@@ -27,4 +27,4 @@ abstract class ProductsDatabase : RoomDatabase(){
                 "productsdb.db").build()
         }
     }
-}
+}*/

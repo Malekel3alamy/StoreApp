@@ -1,5 +1,6 @@
 package com.example.storeapp.di
 
+import com.example.storeapp.firebase.FirebaseCommon
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,4 +21,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideFireStore() = Firebase.firestore
+
+    @Provides
+    @Singleton
+    fun providesFirebaseCommon(firestore: FirebaseFirestore,firebaseAuth: FirebaseAuth) = FirebaseCommon(firestore,firebaseAuth)
 }

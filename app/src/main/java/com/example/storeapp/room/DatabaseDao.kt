@@ -8,7 +8,7 @@ import androidx.room.Query
 import com.example.storeapp.models.CartProduct
 import com.example.storeapp.models.Product
 
-
+/*
 @Dao
 interface DatabaseDao {
 
@@ -27,4 +27,4 @@ interface DatabaseDao {
 
     @Query("DELETE FROM productsTable WHERE id =id")
     suspend fun deleteProduct(id:String) : Boolean
-}
+}*/
