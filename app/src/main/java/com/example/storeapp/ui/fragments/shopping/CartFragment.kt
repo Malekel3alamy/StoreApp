@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storeapp.R
 import com.example.storeapp.adapters.CartAdapter
 import com.example.storeapp.databinding.FragmentCartBinding
+import com.example.storeapp.firebase.FirebaseCommon
+import com.example.storeapp.models.CartProduct
 import com.example.storeapp.utils.Resources
 import com.example.storeapp.utils.showNavView
 import com.example.storeapp.viewmodel.CartViewModel
@@ -25,13 +28,29 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     lateinit var binding : FragmentCartBinding
     private val cartViewModel by viewModels<CartViewModel>()
     private val cartAdapter = CartAdapter()
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCartBinding.bind(view)
         showNavView()
         setupRecycler()
+
         cartViewModel.getCartProducts()
 
+        cartAdapter.onProductClickListener = {
+            val bundle = Bundle().apply {
+                putParcelable("Product",it.product)
+            }
+            findNavController().navigate(R.id.action_cartFragment_to_productInfoFragment,bundle)
+        }
+        cartAdapter.onPlusClickListener ={
+               cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.INCREASE)
+        }
+
+        cartAdapter.onMinusClickListener={
+            cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.DECREASE)
+        }
         lifecycleScope.launch {
             cartViewModel.cartProducts.collect{
                 when(it){
@@ -47,13 +66,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         hideEmptyBox()
                         hideLoading()
                          cartAdapter.differ.submitList(it.data)
-                        var totalPrice =  0f
-                        it.data?.let {cartProductList ->
-                            for (i in 0..<cartProductList.size){
+                        if (cartAdapter.differ.currentList.size ==0){
+                            showEmptyBox()
+                        }
 
-                                totalPrice += (cartProductList[i].product.price)*cartProductList[i].productQuantity
-                            }
-                            binding.totalPriceTV.text = totalPrice.toString() + " $ "
+                        it.data?.let {cartProductList ->
+                            setTotalPriceTV(cartProductList)
+
                         }
 
                     }
@@ -81,5 +100,14 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     }
     private fun hideEmptyBox(){
         binding.layoutCartEmpty.visibility = View.GONE
+    }
+
+    private  fun setTotalPriceTV(cartProductsList:List<CartProduct>){
+        var totalPrice =  0f
+        for (i in 0..<cartProductsList.size){
+
+            totalPrice += (cartProductsList[i].product.price)*cartProductsList[i].productQuantity
+        }
+        binding.totalPriceTV.text = totalPrice.toString() + " $ "
     }
 }

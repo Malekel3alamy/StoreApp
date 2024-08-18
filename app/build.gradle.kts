@@ -68,10 +68,7 @@ dependencies {
     implementation(libs.glide)
     //circular image
     implementation(libs.circleimageview)
-    //viewpager2 indicatior
-    //implementation(libs.viewpagerindicator)
-    //stepView
-   //implementation(libs.stepview)
+
     //Android Ktx
     implementation(libs.androidx.navigation.fragment.ktx)
     //Dagger hilt
@@ -80,7 +77,7 @@ dependencies {
     // Navigation component 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
-// Room
+    // Room
     implementation ("androidx.room:room-runtime:2.6.1")
     ksp ("androidx.room:room-compiler:2.6.1")
     // Kotlin Extensions and Coroutines support for Room

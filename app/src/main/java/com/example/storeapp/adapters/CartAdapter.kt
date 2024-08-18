@@ -8,15 +8,34 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.storeapp.databinding.CartProductItemBinding
 import com.example.storeapp.models.CartProduct
+import com.example.storeapp.models.Product
 
 class CartAdapter:RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
     class MyViewHolder (val binding :CartProductItemBinding) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(cartProduct: CartProduct){
             Glide.with(itemView).load(cartProduct.product.images[0]).into(binding.cartProductIV)
-            binding.cartProductPriceTV.text = cartProduct.product.price.toString() + "$"
+            if(cartProduct.product.offerPercentage != null){
+                val discount =cartProduct.product.price * cartProduct.product.offerPercentage
+                val priceAfterDiscount = cartProduct.product.price - discount
+                binding.cartProductPriceTV.text = priceAfterDiscount.toString() + "$"
+            }else{
+                binding.cartProductPriceTV.text = cartProduct.product.price.toString() + " $"
+            }
+
             binding.cartProductNameTV.text= cartProduct.product.name
             binding.productQuantityTv.text = cartProduct.productQuantity.toString()
+
+         /*   binding.imagePlus.setOnClickListener {
+                binding.productQuantityTv.text = (cartProduct.productQuantity +1 ).toString()
+            }
+            binding.imageMinus.setOnClickListener {
+                val newProductQuantity = cartProduct.productQuantity -1
+                binding.productQuantityTv.text = newProductQuantity.toString()
+                if (newProductQuantity == 0 || newProductQuantity == -1){
+                    binding.productQuantityTv.text = "0"
+                }
+            }*/
 
         }
 
@@ -35,6 +54,16 @@ class CartAdapter:RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
        val cartProduct = differ.currentList[position]
         holder.bind(cartProduct)
+        holder.itemView.setOnClickListener {
+            onProductClickListener?.invoke(cartProduct)
+        }
+        holder.binding.imagePlus.setOnClickListener {
+            onPlusClickListener?.invoke(cartProduct)
+        }
+        holder.binding.imageMinus.setOnClickListener {
+            onMinusClickListener?.invoke(cartProduct)
+        }
+
     }
 
     private val differCallback = object :DiffUtil.ItemCallback<CartProduct>(){
@@ -47,6 +76,13 @@ class CartAdapter:RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
         }
 
     }
+     var onProductClickListener :((CartProduct) -> Unit)? = null
+    var onPlusClickListener :((CartProduct) -> Unit)? = null
+     var onMinusClickListener :((CartProduct) -> Unit)? = null
+
+   /* fun onItemClickListener (listener :((CartProduct) -> Unit) ){
+        onItemClickListener = listener
+    }*/
     val differ = AsyncListDiffer(this,differCallback)
 
 

@@ -39,9 +39,22 @@ class ProductInfoFragment : Fragment(R.layout.fragment_product_info) {
              product = requireArguments().getParcelable<Product>("Product")!!
 
             binding.apply {
-                productName.text = product?.name
-                Glide.with(requireContext()).load(product!!.images[0]).into(productImage)
-                productPrice.text = "$ ${product.price}"
+                productName.text = product.name
+                Glide.with(requireContext()).load(product.images[0]).into(productImage)
+                productPriceTV.text = "$ ${product.price}"
+                if ((product.offerPercentage) != null ){
+                    val discount = product.price * product.offerPercentage!!
+                    if (discount==0f ){
+                        productPriceAfterOfferTV.visibility = View.GONE
+                        productPriceTV.setTextColor(resources.getColor(R.color.black))
+                    }else
+                    productPriceAfterOfferTV.text = (product.price - discount).toString() + " $"
+
+
+                }else{
+                    productPriceAfterOfferTV.visibility = View.GONE
+                    productPriceTV.setTextColor(resources.getColor(R.color.black))
+                }
                 productDescription.text = product.description
                 setupColorRV()
                 if (product.colors != null){
