@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -20,7 +21,9 @@ import com.example.storeapp.utils.showNavView
 import com.example.storeapp.viewmodel.CartViewModel
 import com.example.storeapp.viewmodel.DetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -48,8 +51,26 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.INCREASE)
         }
 
+        lifecycleScope.launch {
+            cartViewModel.deleteDialog.collectLatest{
+                val alertDialog = AlertDialog.Builder(requireContext()).apply {
+                    setTitle(" Delete Product From Cart")
+                    setMessage("Delete This Product From Cart ? ")
+                    setPositiveButton("Delete"){dialog,_ ->
+                        cartViewModel.deleteCarTProduct(it)
+                        dialog.dismiss()
+
+                    }
+                    setNegativeButton("Cancel"){dialog,_ ->
+                        dialog.dismiss()
+                    }
+                }
+                alertDialog.create()
+                alertDialog.show()
+            }
+        }
         cartAdapter.onMinusClickListener={
-            cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.DECREASE)
+                cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.DECREASE)
         }
         lifecycleScope.launch {
             cartViewModel.cartProducts.collect{
@@ -79,12 +100,14 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 }
             }
         }
+
+
     }
 
     private fun setupRecycler(){
         binding.apply {
             rvCart.adapter = cartAdapter
-            rvCart.layoutManager = LinearLayoutManager(requireContext())
+            rvCart.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.storeapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.storeapp.firebase.FirebaseCommon
@@ -12,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +29,10 @@ class CartViewModel @Inject constructor(private  val firestore: FirebaseFirestor
     }
     private val _cartProducts = MutableStateFlow<Resources<List<CartProduct>>>(Resources.Loading())
     val cartProducts = _cartProducts.asStateFlow()
+
+    private val _deleteDialog = MutableSharedFlow<CartProduct>()
+    val deleteDialog = _deleteDialog.asSharedFlow()
+
 
     private var cartProductsDocuments = emptyList<DocumentSnapshot>()
 
@@ -57,11 +63,20 @@ class CartViewModel @Inject constructor(private  val firestore: FirebaseFirestor
     }
 
 
+fun deleteCarTProduct(cartProduct: CartProduct){
+    val index = cartProducts.value.data?.indexOf(cartProduct)
+    if (index != null && index != -1 ){
+        Log.d("DELETEPRODUCT"," Deleted ")
+        val documentId = cartProductsDocuments[index].id
+        firestore.collection("user").document(auth.uid!!).collection("cart").document(documentId).delete()
+    }
 
+}
     fun changeQuantity(
         cartProduct: CartProduct,
         quantityChanging: FirebaseCommon.QuantityChanging
     ){
+
 
        val index = cartProducts.value.data?.indexOf(cartProduct)
         /**
@@ -71,6 +86,7 @@ class CartViewModel @Inject constructor(private  val firestore: FirebaseFirestor
         if (index != null&& index != -1 ){
             val documentId = cartProductsDocuments[index].id
 
+
             when (quantityChanging){
                 FirebaseCommon.QuantityChanging.INCREASE -> {
                     viewModelScope.launch {
@@ -79,15 +95,26 @@ class CartViewModel @Inject constructor(private  val firestore: FirebaseFirestor
                     increaseQuantity(documentId)
                 }
                 FirebaseCommon.QuantityChanging.DECREASE -> {
-                    viewModelScope.launch {
-                        _cartProducts.emit(Resources.Loading())
+
+                    if (cartProduct.productQuantity == 1) {
+                        Log.d("Index1", index.toString())
+                        viewModelScope.launch {
+                            _deleteDialog.emit(cartProduct)
+                        }
+                    } else {
+
+                        viewModelScope.launch {
+                            _cartProducts.emit(Resources.Loading())
+                        }
+                        decreaseQuantity(documentId)
                     }
-                    decreaseQuantity(documentId)
+                }
                 }
             }
 
         }
-    }
+
+
 
     private fun increaseQuantity(documentId  : String){
 

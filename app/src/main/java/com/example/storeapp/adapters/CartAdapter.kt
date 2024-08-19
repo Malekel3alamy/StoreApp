@@ -26,16 +26,6 @@ class CartAdapter:RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
             binding.cartProductNameTV.text= cartProduct.product.name
             binding.productQuantityTv.text = cartProduct.productQuantity.toString()
 
-         /*   binding.imagePlus.setOnClickListener {
-                binding.productQuantityTv.text = (cartProduct.productQuantity +1 ).toString()
-            }
-            binding.imageMinus.setOnClickListener {
-                val newProductQuantity = cartProduct.productQuantity -1
-                binding.productQuantityTv.text = newProductQuantity.toString()
-                if (newProductQuantity == 0 || newProductQuantity == -1){
-                    binding.productQuantityTv.text = "0"
-                }
-            }*/
 
         }
 
@@ -80,9 +70,7 @@ class CartAdapter:RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
     var onPlusClickListener :((CartProduct) -> Unit)? = null
      var onMinusClickListener :((CartProduct) -> Unit)? = null
 
-   /* fun onItemClickListener (listener :((CartProduct) -> Unit) ){
-        onItemClickListener = listener
-    }*/
+
     val differ = AsyncListDiffer(this,differCallback)
 
 
