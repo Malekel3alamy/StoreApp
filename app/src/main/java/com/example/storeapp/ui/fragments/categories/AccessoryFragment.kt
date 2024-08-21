@@ -37,6 +37,7 @@ class AccessoryFragment : BaseCategoryFragment() {
 
                             }
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }

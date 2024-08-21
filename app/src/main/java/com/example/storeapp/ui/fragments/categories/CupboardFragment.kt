@@ -41,6 +41,7 @@ class CupboardFragment : BaseCategoryFragment() {
 
                             }
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }

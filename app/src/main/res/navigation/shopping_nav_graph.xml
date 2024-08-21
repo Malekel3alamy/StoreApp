@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_cartFragment_to_productInfoFragment"
             app:destination="@id/productInfoFragment" />
+        <action
+            android:id="@+id/action_cartFragment_to_billingFragment"
+            app:destination="@id/billingFragment" />
     </fragment>
     <fragment
         android:id="@+id/productInfoFragment"
@@ -65,4 +68,27 @@
             android:id="@+id/action_productInfoFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/billingFragment"
+        android:name="com.example.storeapp.ui.fragments.BillingFragment"
+        android:label="BillingFragment"
+        tools:layout="@layout/fragment_billing"
+        >
+        <action
+            android:id="@+id/action_billingFragment_to_addressFragment"
+            app:destination="@id/addressFragment" />
+        <argument
+            android:name="totalPrice"
+            app:argType="float"
+            android:defaultValue="0.0" />
+        <argument
+            android:name="cartProducts"
+            app:argType="com.example.storeapp.models.CartProduct[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressFragment"
+        android:name="com.example.storeapp.ui.fragments.AddressFragment"
+        android:label="AddressFragment"
+        tools:layout="@layout/fragment_address"
+        />
 </navigation>

@@ -77,6 +77,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                                 }
                                 Log.d(TAG," Error -> ${it.message.toString()}")
                             }
+
+                            is Resources.UnSpecified -> Unit
                         }
             }
         }

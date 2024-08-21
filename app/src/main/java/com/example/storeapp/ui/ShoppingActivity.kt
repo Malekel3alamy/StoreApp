@@ -42,6 +42,8 @@ class ShoppingActivity : AppCompatActivity() {
                             backgroundColor = resources.getColor(R.color.g_blue)
                         }
                     }
+
+                    is Resources.UnSpecified -> Unit
                 }
             }
         }

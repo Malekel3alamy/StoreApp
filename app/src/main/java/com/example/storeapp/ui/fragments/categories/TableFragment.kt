@@ -37,6 +37,7 @@ class TableFragment : BaseCategoryFragment() {
 
                             }
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }

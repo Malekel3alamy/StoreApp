@@ -55,6 +55,7 @@ private val baseCategoryViewModel by viewModels<BaseCategoryViewModel>()
                             Log.d("ChairFragment",it.data.size.toString())
                         }
                     }
+                    is Resources.UnSpecified -> Unit
                 }
             }
         }

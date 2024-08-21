@@ -1,11 +1,13 @@
 package com.example.storeapp.ui.fragments.shopping
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -32,6 +34,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
     private val cartViewModel by viewModels<CartViewModel>()
     private val cartAdapter = CartAdapter()
 
+    private var total = 0f
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +44,14 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         showNavView()
         setupRecycler()
 
-        cartViewModel.getCartProducts()
+        binding.btnCheckOut.setOnClickListener {
+            if (cartAdapter.differ.currentList.size != 0  ){
+
+            }
+            val action = CartFragmentDirections.actionCartFragmentToBillingFragment(cartAdapter.differ.currentList.toTypedArray(),total)
+
+            findNavController().navigate(action)
+        }
 
         cartAdapter.onProductClickListener = {
             val bundle = Bundle().apply {
@@ -47,31 +59,19 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             }
             findNavController().navigate(R.id.action_cartFragment_to_productInfoFragment,bundle)
         }
+
+        // Increase Product Quantity
         cartAdapter.onPlusClickListener ={
                cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.INCREASE)
         }
 
-        lifecycleScope.launch {
-            cartViewModel.deleteDialog.collectLatest{
-                val alertDialog = AlertDialog.Builder(requireContext()).apply {
-                    setTitle(" Delete Product From Cart")
-                    setMessage("Delete This Product From Cart ? ")
-                    setPositiveButton("Delete"){dialog,_ ->
-                        cartViewModel.deleteCarTProduct(it)
-                        dialog.dismiss()
+        handleDeleteProduct()
 
-                    }
-                    setNegativeButton("Cancel"){dialog,_ ->
-                        dialog.dismiss()
-                    }
-                }
-                alertDialog.create()
-                alertDialog.show()
-            }
-        }
+        // Decrease Product Quantity
         cartAdapter.onMinusClickListener={
                 cartViewModel.changeQuantity(it,FirebaseCommon.QuantityChanging.DECREASE)
         }
+
         lifecycleScope.launch {
             cartViewModel.cartProducts.collect{
                 when(it){
@@ -92,16 +92,38 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                         }
 
                         it.data?.let {cartProductList ->
-                            setTotalPriceTV(cartProductList)
+                            total =  setTotalPriceTV(cartProductList)
+                            binding.totalPriceTV.text = total.toString() + " $ "
+
 
                         }
 
                     }
+                    is Resources.UnSpecified -> Unit
                 }
             }
         }
+    }
 
+    private fun handleDeleteProduct() {
+        lifecycleScope.launch {
+            cartViewModel.deleteDialog.collectLatest{
+                val alertDialog = AlertDialog.Builder(requireContext()).apply {
+                    setTitle(" Delete Product From Cart")
+                    setMessage("Delete This Product From Cart ? ")
+                    setPositiveButton("Delete"){dialog,_ ->
+                        cartViewModel.deleteCarTProduct(it)
+                        dialog.dismiss()
 
+                    }
+                    setNegativeButton("Cancel"){dialog,_ ->
+                        dialog.dismiss()
+                    }
+                }
+                alertDialog.create()
+                alertDialog.show()
+            }
+        }
     }
 
     private fun setupRecycler(){
@@ -125,12 +147,17 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding.layoutCartEmpty.visibility = View.GONE
     }
 
-    private  fun setTotalPriceTV(cartProductsList:List<CartProduct>){
+    private  fun setTotalPriceTV(cartProductsList:List<CartProduct>) : Float{
         var totalPrice =  0f
         for (i in 0..<cartProductsList.size){
-
-            totalPrice += (cartProductsList[i].product.price)*cartProductsList[i].productQuantity
+            if (cartProductsList[i].product.offerPercentage != null){
+                val discount = cartProductsList[i].product.price * cartProductsList[i].product.offerPercentage!!
+                val newPrice = (cartProductsList[i].product.price) - discount
+                totalPrice += newPrice * cartProductsList[i].productQuantity
+            }else{
+                totalPrice += (cartProductsList[i].product.price)*cartProductsList[i].productQuantity
+            }
         }
-        binding.totalPriceTV.text = totalPrice.toString() + " $ "
+        return totalPrice
     }
 }

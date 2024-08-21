@@ -83,6 +83,7 @@ class ProductInfoFragment : Fragment(R.layout.fragment_product_info) {
                             hideLoading()
 
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }

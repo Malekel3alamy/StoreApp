@@ -57,6 +57,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                                }
 
                            }
+                           is Resources.UnSpecified -> Unit
                        }
             }
         }
@@ -90,6 +91,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                             bestDealsAdapter.differ.submitList(it.data)
                         }
                     }
+                    is Resources.UnSpecified -> Unit
                 }
             }
         }
@@ -122,6 +124,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                             Log.d("MainCategoryFragment",it.data.size.toString())
                         }
                     }
+                    is Resources.UnSpecified -> Unit
                 }
             }
         }

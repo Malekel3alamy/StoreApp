@@ -37,6 +37,7 @@ class FurnitureFragment : BaseCategoryFragment() {
 
                             }
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }

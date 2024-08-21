@@ -63,6 +63,7 @@ if(arguments != null){
                                 startActivity(it)
                             }
                         }
+                        is Resources.UnSpecified -> Unit
                     }
                 }
             }
@@ -84,6 +85,7 @@ binding.tvForgetPasswordLogin.setOnClickListener {
                        is Resources.Success -> {
 
                        }
+                       is Resources.UnSpecified -> Unit
                    }
                }
            }
