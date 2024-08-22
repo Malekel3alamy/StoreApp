@@ -1,5 +1,6 @@
 package com.example.storeapp.ui.fragments.shopping
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -20,7 +21,9 @@ import com.example.storeapp.R
 import com.example.storeapp.data.User
 import com.example.storeapp.databinding.FragmentProfileBinding
 import com.example.storeapp.utils.Resources
+import com.example.storeapp.viewmodel.ProfileViewModel
 import com.example.storeapp.viewmodel.UserAccountViewModel
+import com.google.firebase.database.collection.BuildConfig
 import com.google.firebase.database.collection.LLRBNode
 import com.google.type.Color
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,126 +32,59 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
-    lateinit var binding : FragmentProfileBinding
+lateinit var binding : FragmentProfileBinding
 
-    private val userAccountViewModel by viewModels<UserAccountViewModel>()
+private val profileViewModel by viewModels<ProfileViewModel>()
 
-    private var imageUri : Uri? = null
-
-    private lateinit var imageActivityResultLauncher : ActivityResultLauncher<Intent>
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        imageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            imageUri =it.data?.data
-            Glide.with(this).load(imageUri).into(binding.imageUser)
-        }
-    }
+    @SuppressLint("RestrictedApi")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding = FragmentProfileBinding.bind(view)
-
-        userAccountViewModel.getUserInfo()
-
+           binding = FragmentProfileBinding.bind(view)
         lifecycleScope.launch {
-            userAccountViewModel.user.collectLatest {
+            profileViewModel.user.collectLatest {
                 when(it){
                     is Resources.Error -> {
-                        hideUseRLoading()
-                        Toast.makeText(requireContext()," Sorry Error ", Toast.LENGTH_LONG).show()
+                        binding.progressbarSettings.visibility = View.GONE
+                        Toast.makeText(requireContext()," Sorry Error ",Toast.LENGTH_LONG).show()
                     }
                     is Resources.Loading -> {
-                            showUserLoading()
+                        binding.progressbarSettings.visibility = View.VISIBLE
                     }
                     is Resources.Success -> {
-                        hideUseRLoading()
-                        showUseInfo(it.data!!)
+                        binding.progressbarSettings.visibility = View.GONE
+                        Glide.with(requireView()).load(it.data!!.imagePath).into(binding.imageUser)
+                        binding.tvUserName.text =  " ${it.data!!.firstName} ${it.data!!.lastName}"
+                        }
 
-                    }
+
                     is Resources.UnSpecified -> Unit
                 }
             }
         }
 
-        lifecycleScope.launch {
-            userAccountViewModel.editInfo.collectLatest {
-                when(it){
-                    is Resources.Error -> {
-                        hideLoading()
-                        Toast.makeText(requireContext()," Sorry Error ", Toast.LENGTH_LONG).show()
-                    }
-                    is Resources.Loading -> {
-                        showLoading()
-                    }
-                    is Resources.Success -> {
-                        hideLoading()
-                        findNavController().navigateUp()
-
-                    }
-                    is Resources.UnSpecified -> Unit
-                }
-            }
+        binding.constraintProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_userAccountFragment)
         }
 
-        binding.buttonSave.setOnClickListener {
-            binding.apply {
-                val email = edEmail.text.toString().trim()
-                val firstName = edFirstName.text.toString().trim()
-                val lastName = edLastName.text.toString().trim()
-                val user = User(firstName,lastName,email)
-
-                userAccountViewModel.updateUser(user,imageUri)
-            }
+        binding.linearAllOrders.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
         }
 
-        binding.imageEdit.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type  = "image/*"
+        binding.linearBilling.setOnClickListener {
+            val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment2(
+                emptyArray(),0f
+            )
 
-            imageActivityResultLauncher.launch(intent)
+            findNavController().navigate(action)
         }
-    }
 
-    private fun showLoading() {
-        binding.progressbarAccount.visibility = View.VISIBLE
-    }
-
-    private fun hideLoading() {
-        binding.progressbarAccount.visibility = View.GONE
-    }
-
-    private fun showUseInfo(user: User) {
-          Glide.with(requireContext()).load(user.imagePath).error(ColorDrawable(resources.getColor(R.color.g_gray700))).into(binding.imageUser)
-          binding.edEmail.setText(user.email)
-        Log.d("Email",user.email)
-        binding.edFirstName.setText(user.firstName)
-        binding.edLastName.setText(user.lastName)
-
-    }
-
-    private fun showUserLoading() {
-        binding.apply {
-            progressbarAccount.visibility = View.VISIBLE
-            imageUser.visibility = View.INVISIBLE
-            imageEdit.visibility = View.INVISIBLE
-            edFirstName.visibility = View.INVISIBLE
-            edLastName.visibility = View.INVISIBLE
-            edEmail.visibility = View.INVISIBLE
-            buttonSave.visibility = View.INVISIBLE
+        binding.logout.setOnClickListener {
+            profileViewModel.logout()
+            findNavController().navigate(R.id.action_profileFragment_to_loginFragment2)
+            requireActivity().finish()
         }
-    }
 
-    private fun hideUseRLoading() {
-        binding.apply {
-            progressbarAccount.visibility = View.GONE
-            imageUser.visibility = View.VISIBLE
-            imageEdit.visibility = View.VISIBLE
-            edFirstName.visibility = View.VISIBLE
-            edLastName.visibility = View.VISIBLE
-            edEmail.visibility = View.VISIBLE
-            buttonSave.visibility = View.VISIBLE
-        }
+        binding.tvVersion.text = " Version  ${BuildConfig.VERSION_CODE}"
     }
 }
+
