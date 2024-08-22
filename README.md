@@ -13,7 +13,7 @@ ensure a clean and maintainable codebase.It provides a seamless shopping experie
 - Payment Integration: Secure payment processing using Stripe.
 - Push Notifications: Receive notifications for order updates and promotions.
 - User Profile: Manage user information and view order history.
-- 
+  
 **Technologies Used**
 - Kotlin: For Android development.
 - Firebase: For backend services including authentication and database.
@@ -22,7 +22,8 @@ ensure a clean and maintainable codebase.It provides a seamless shopping experie
 - Navigation Fragment
 - Dagger Hilt
 - Data binding
-- Live Data 
+- Live Data
+- coroutines 
  
 **Installation**
 
