@@ -39,16 +39,15 @@ ensure a clean and maintainable codebase.It provides a seamless shopping experie
 - Navigation Component 
 - FirebaseAuth
 - Firestore
-  
-
-Run the app:
+- Run the app:
 
 
-Contributing
+**Contributing**
+
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the project’s coding standards and includes appropriate tests.
 
-License
+**License**
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Contact
+**Contact**
 If you have any questions or suggestions, feel free to reach out to me at mahmoudalataly1234@gmail.com
