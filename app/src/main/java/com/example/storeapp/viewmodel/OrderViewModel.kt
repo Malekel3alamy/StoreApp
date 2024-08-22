@@ -23,9 +23,7 @@ class OrderViewModel @Inject constructor(
 
 
     fun placeOrder(order : Order){
-        viewModelScope.launch {
 
-                   }
 
         firestore.runBatch { batch ->
             // Add the order into user-orders collection

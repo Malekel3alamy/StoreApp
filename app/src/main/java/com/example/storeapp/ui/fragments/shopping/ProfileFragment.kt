@@ -39,6 +39,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         imageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
             imageUri =it.data?.data
             Glide.with(this).load(imageUri).into(binding.imageUser)
