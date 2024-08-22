@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storeapp.R
 import com.example.storeapp.adapters.AllOrdersAdapter
@@ -29,6 +30,12 @@ class OrdersFragment:Fragment(R.layout.fragment_orders) {
 
         setupAllOrdersRecycler()
 
+        allOrdersAdapter.onClick = {
+            val bundle = Bundle().apply {
+                putParcelable("Order",it)
+            }
+            findNavController().navigate(R.id.action_ordersFragment_to_orderDetailsFragment,bundle)
+        }
         lifecycleScope.launch {
             allOrdersViewModel.allOrders.collectLatest {
                 when(it){
@@ -49,6 +56,7 @@ class OrdersFragment:Fragment(R.layout.fragment_orders) {
                 }
             }
         }
+
     }
 
     private fun setupAllOrdersRecycler() {
@@ -57,6 +65,7 @@ class OrdersFragment:Fragment(R.layout.fragment_orders) {
             adapter = allOrdersAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
     }
 
 }

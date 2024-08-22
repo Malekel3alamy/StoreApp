@@ -99,5 +99,15 @@
         android:name="com.example.storeapp.ui.fragments.OrdersFragment"
         android:label="OrdersFragment"
         tools:layout="@layout/fragment_orders"
+        >
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.example.storeapp.ui.fragments.OrderDetailsFragment"
+        android:label="OrderDetailsFragment"
+        tools:layout="@layout/fragment_order_detail"
         />
 </navigation>

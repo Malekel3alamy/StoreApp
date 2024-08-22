@@ -29,6 +29,7 @@ class AllOrdersAdapter() : RecyclerView.Adapter<AllOrdersAdapter.MyViewHolder>()
                 OrderStatus.Shipped -> {itemView.resources.getColor(R.color.g_blue100)}
             }
             binding.imageOrderState.setImageDrawable(ColorDrawable(colorDrawable))
+
         }
     }
 
@@ -45,6 +46,10 @@ class AllOrdersAdapter() : RecyclerView.Adapter<AllOrdersAdapter.MyViewHolder>()
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val order = differ.currentList[position]
        holder.bind(order)
+
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(order)
+        }
     }
 
     private val differCallback = object :DiffUtil.ItemCallback<Order>(){
@@ -58,4 +63,5 @@ class AllOrdersAdapter() : RecyclerView.Adapter<AllOrdersAdapter.MyViewHolder>()
 
     }
     val differ = AsyncListDiffer(this,differCallback)
+    var onClick  :((Order) -> Unit)? = null
 }
