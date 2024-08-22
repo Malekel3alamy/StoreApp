@@ -1,4 +1,4 @@
-**E-Commerce App**
+**E_Commerce_App**
 
 **Overview**
 This is a fully functional e-commerce application built using Kotlin . The app follows the MVVM (Model-View-ViewModel) design pattern to 
