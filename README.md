@@ -14,6 +14,11 @@ ensure a clean and maintainable codebase.It provides a seamless shopping experie
 - Push Notifications: Receive notifications for order updates and promotions.
 - User Profile: Manage user information and view order history.
   
+  **Helper App**
+  - [Github] https://github.com/Malekel3alamy/ProductsAdder.git
+  - this app is to upload my products data and information on firestore 
+  
+  
 **Technologies Used**
 - Kotlin: For Android development.
 - Firebase: For backend services including authentication and database.
