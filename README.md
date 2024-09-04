@@ -1,47 +1,58 @@
-E-Commerce App 
+**E_Commerce_App**
 
-Overview
+**Overview**
 This is a fully functional e-commerce application built using Kotlin . The app follows the MVVM (Model-View-ViewModel) design pattern to 
 ensure a clean and maintainable codebase.It provides a seamless shopping experience with features like product browsing, cart management, and secure checkout.
 
-Features
+**Features**
 
-User Authentication: Secure login and registration using Firebase Authentication.
-Product Listing: Browse products by categories, search functionality, and detailed product pages.
-Shopping Cart: Add, remove, and update items in the cart.
-Order Management: Place orders and view order history.
-Payment Integration: Secure payment processing using Stripe.
-Push Notifications: Receive notifications for order updates and promotions.
-User Profile: Manage user information and view order history.
-Technologies Used
-Kotlin: For Android development.
-Firebase: For backend services including authentication and database.
-Stripe API: For payment processing.
-MVVM Architecture: For a clean and maintainable codebase.
-Navigation Fragment 
+- User Authentication: Secure login and registration using Firebase Authentication.
+- Product Listing: Browse products by categories, search functionality, and detailed product pages.
+- Shopping Cart: Add, remove, and update items in the cart.
+- Order Management: Place orders and view order history.
+- Payment Integration: Secure payment processing using Stripe.
+- Push Notifications: Receive notifications for order updates and promotions.
+- User Profile: Manage user information and view order history.
+  
+  **Helper App**
+  - [Github] https://github.com/Malekel3alamy/ProductsAdder.git
+  - this app is to upload my products data and information on firestore 
+  
+  
+**Technologies Used**
+- Kotlin: For Android development.
+- Firebase: For backend services including authentication and database.
+- Stripe API: For payment processing.
+- MVVM Architecture: For a clean and maintainable codebase.
+- Navigation Fragment
+- Dagger Hilt
+- Data binding
+- Live Data
+- coroutines 
  
-Installation
-Clone the repository:
-git clone https://github.com/Malekel3alamy/StoreApp.git
+**Installation**
 
-Navigate to the project directory:
-cd StoreApp
+- Clone the repository:
+- git clone https://github.com/Malekel3alamy/StoreApp.git
 
-open App On Android Studio 
-Install Dependencies :
-Dagger hilt
-Navigation Component 
-FirebaseAuth
-Firestore
+- Navigate to the project directory:
+- cd StoreApp
 
-Run the app:
+- open App On Android Studio 
+**Install Dependencies :**
+- Dagger hilt
+- Navigation Component 
+- FirebaseAuth
+- Firestore
+- Run the app:
 
 
-Contributing
+**Contributing**
+
 Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure your code follows the project’s coding standards and includes appropriate tests.
 
-License
+**License**
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-Contact
+**Contact**
 If you have any questions or suggestions, feel free to reach out to me at mahmoudalataly1234@gmail.com
