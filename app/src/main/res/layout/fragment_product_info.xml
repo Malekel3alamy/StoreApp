@@ -21,8 +21,8 @@
             android:id="@+id/productImageCardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +30,7 @@
             <ImageView
                 android:id="@+id/productImage"
                 style="@style/RoundedSquare"
+                android:scaleType="fitXY"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 app:circularflow_defaultRadius="15dp"

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,10 +33,22 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
     private val bestProductsAdapter = BestProductsAdapter()
 
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this){
+
+        fragmentManager?.clearBackStack("")
+        }
+        callback.isEnabled
+
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainCategoryBinding.bind(view)
+
+
+
 
         // Special Products
         setupSpecialProductRV()

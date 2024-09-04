@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/homeFragment"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.shopping.HomeFragment">
@@ -59,26 +60,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     
-    <ImageView
-        android:id="@+id/scanIV"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_scan"
-        android:background="@drawable/icon_background"
-        android:backgroundTint="@color/g_search_and_icons"
-        android:padding="5dp"/>
-    <View
-        android:layout_width="10dp"
-        android:layout_height="match_parent"/>
 
-    <ImageView
-        android:id="@+id/microphoneIV"
-        android:layout_width="40dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_microphone"
-        android:background="@drawable/icon_background"
-        android:backgroundTint="@color/g_search_and_icons"
-        android:padding="5dp"/>
 </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
@@ -90,6 +72,7 @@
         app:tabTextColor="@color/g_gray500"
         app:tabMode="scrollable"
         app:tabIndicator="@null"
+        android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/homeHeader"

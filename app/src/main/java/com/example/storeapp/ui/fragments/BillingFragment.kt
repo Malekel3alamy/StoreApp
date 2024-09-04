@@ -32,8 +32,9 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
     lateinit var binding: FragmentBillingBinding
 
     private var productAddress :ProductAddress?= null
+
     private val billingProductsAdapter by lazy { BillingProductsAdapter()}
-    private val addressAdapter by lazy { AddressAdapter() }
+   // private val addressAdapter by lazy { AddressAdapter() }
 
     private val billingViewModel by viewModels<BillingViewModel>()
 
@@ -50,11 +51,10 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cartProducts = args.cartProducts.toList()
+        cartProducts = args.cartProducts!!.toList()
         totalPrice = args.totalPrice
+        productAddress=args.Address
         Log.d("Price",totalPrice.toString())
-
-
 
 
 
@@ -64,30 +64,42 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         binding = FragmentBillingBinding.bind(view)
 
         setupBillingProductsRv()
-        setupAddressRv()
+       // setupAddressRv()
 
-        binding.imageAddAddress.setOnClickListener {
-            findNavController().navigate(R.id.action_billingFragment_to_addressFragment)
+
+
+            if (productAddress!= null){
+                binding.buttonAddress.visibility = View.VISIBLE
+                binding.buttonAddress.setText(productAddress!!.addressTitle)
+
+            }
+
+        binding.buttonAddress.setOnClickListener {
+            findNavController().navigateUp()
         }
-        lifecycleScope.launch {
-            billingViewModel.addresses.collectLatest {
+
+        binding.imageCloseBilling.setOnClickListener {
+            findNavController().navigate(R.id.cartFragment)
+        }
+
+     /*   lifecycleScope.launch {
+            billingViewModel..collectLatest {
                 when(it){
                     is Resources.Error -> {
-                        binding.progressbarAddress.visibility = View.INVISIBLE
                         Toast.makeText(requireContext(),"Error " + it.message,Toast.LENGTH_LONG).show()
                     }
                     is Resources.Loading -> {
-                        binding.progressbarAddress.visibility = View.VISIBLE
                     }
                     is Resources.Success -> {
-                        binding.progressbarAddress.visibility = View.INVISIBLE
-                        addressAdapter.differ.submitList(it.data)
+                     //   addressAdapter.differ.submitList(it.data)
+                        binding.buttonAddress.visibility = View.VISIBLE
+                        binding.buttonAddress.setText(it.data.)
                     }
                     is Resources.UnSpecified -> Unit
                 }
             }
 
-        }
+        }*/
 
         lifecycleScope.launch {
             ordersViewModel.order.collectLatest {
@@ -112,16 +124,24 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         billingProductsAdapter.differ.submitList(cartProducts)
         binding.tvTotalPrice.text =   totalPrice.toString()
 
-        addressAdapter.onClick={
-              productAddress = it
-        }
+     /*   addressAdapter.onClick= {address,state, ->
+            if (state){
+                productAddress = address
+                productAddressTitle = address.addressTitle
+            }else{
+                productAddress = null
+
+            }
+
+        }*/
         binding.buttonPlaceOrder.setOnClickListener {
 
-            if (productAddress != null && totalPrice!= 0f && cartProducts != emptyList<CartProduct>() ){
-                showOrderConfirmationDialog()
+            if (productAddress == null  && totalPrice!= 0f && cartProducts != emptyList<CartProduct>() ){
+                Toast.makeText(requireContext()," Please Make Sure To Select Address and Products ",Toast.LENGTH_LONG).show()
 
             }else{
-                Toast.makeText(requireContext()," PleaseSelect Address",Toast.LENGTH_LONG).show()
+                showOrderConfirmationDialog()
+
             }
         }
     }
@@ -145,10 +165,10 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         alertDialog.show()
     }
 
-    private fun setupAddressRv() {
+  /*  private fun setupAddressRv() {
         binding.rvAddress.adapter = addressAdapter
         binding.rvAddress.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-    }
+    }*/
 
     private fun setupBillingProductsRv() {
         binding.rvProducts.adapter = billingProductsAdapter

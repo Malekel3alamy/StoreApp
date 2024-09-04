@@ -39,7 +39,7 @@ if(arguments != null){
         }
 
         binding.tvDontHaveAnAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_introductionFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         binding.buttonLoginAccountOptions.setOnClickListener {

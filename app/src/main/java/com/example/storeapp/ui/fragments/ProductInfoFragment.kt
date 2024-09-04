@@ -44,7 +44,7 @@ class ProductInfoFragment : Fragment(R.layout.fragment_product_info) {
                 productPriceTV.text = "$ ${product.price}"
                 if ((product.offerPercentage) != null ){
                     val discount = product.price * product.offerPercentage!!
-                    if (discount==0f ){
+                    if (discount == 0f ){
                         productPriceAfterOfferTV.visibility = View.GONE
                         productPriceTV.setTextColor(resources.getColor(R.color.black))
                     }else
@@ -81,7 +81,7 @@ class ProductInfoFragment : Fragment(R.layout.fragment_product_info) {
                         }
                         is Resources.Success -> {
                             hideLoading()
-
+                           Toast.makeText(requireContext()," This Product Is Now in Your Cart ",Toast.LENGTH_SHORT).show()
                         }
                         is Resources.UnSpecified -> Unit
                     }

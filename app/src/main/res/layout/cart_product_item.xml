@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/g_white"
+    android:backgroundTint="@color/white"
 app:cardElevation="0dp"
     >
     
@@ -19,16 +19,18 @@ app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/cartProductIV"
             android:layout_width="80dp"
             android:layout_height="75dp"
+            android:background="@color/red"
             app:layout_constraintBottom_toTopOf="@id/line"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/ImageRoundedCorners"
             />
         <TextView
             android:id="@+id/cartProductNameTV"

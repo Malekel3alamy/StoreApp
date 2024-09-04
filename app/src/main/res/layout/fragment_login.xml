@@ -55,11 +55,14 @@
             android:id="@+id/etEmailLogin"
             android:layout_width="0dp"
             android:layout_height="@dimen/editTextHeight"
+            android:background="@drawable/et_background"
+            android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/tvDontHaveAnAccount"
             app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             android:layout_marginTop="50dp"
             android:hint="Email"
+
             android:inputType="textEmailAddress"
             style="@style/editText"
 
@@ -67,6 +70,7 @@
 
         <EditText
             android:id="@+id/etPasswordLogin"
+            android:background="@drawable/et_background"
             android:layout_width="0dp"
             android:layout_height="@dimen/editTextHeight"
             app:layout_constraintTop_toBottomOf="@id/etEmailLogin"
@@ -74,12 +78,14 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
             android:layout_marginTop="15dp"
             android:hint="Password"
+            android:textAlignment="center"
             android:inputType="textPassword"
             style="@style/editText"
 
             />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/tvForgetPasswordLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

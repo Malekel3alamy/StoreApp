@@ -31,15 +31,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/black" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:fontFamily="@font/poppins_light"
+                    android:fontFamily="@font/alata"
                     android:text="Billing"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     app:layout_constraintBottom_toBottomOf="@id/imageCloseBilling"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/imageCloseBilling"
                     app:layout_constraintTop_toTopOf="@id/imageCloseBilling" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -97,43 +99,59 @@
             app:drawableTint="@color/black"
             app:drawableLeftCompat="@drawable/ic_location" />
 
-        <ImageView
-            android:id="@+id/imageAddAddress"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            app:layout_constraintEnd_toEndOf="@id/guideline2"
-            app:layout_constraintTop_toTopOf="@id/tvShoppingAddress"
-            app:layout_constraintBottom_toBottomOf="@id/tvShoppingAddress"
-            android:src="@drawable/ic_add"
-            app:tint="@color/g_dark_blue"
-            />
+<!--        <ImageView-->
+<!--            android:id="@+id/imageAddAddress"-->
+<!--            android:layout_width="15dp"-->
+<!--            android:layout_height="15dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/guideline2"-->
+<!--            app:layout_constraintTop_toTopOf="@id/tvShoppingAddress"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/tvShoppingAddress"-->
+<!--            android:src="@drawable/ic_add"-->
+<!--            app:tint="@color/g_dark_blue"-->
+<!--            />-->
 
-        <FrameLayout
-            android:id="@+id/rvFrame"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/guideline1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvShoppingAddress">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonAddress"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            app:cornerRadius="6dp"
+            android:clickable="true"
+            android:fontFamily="@font/poppins_thin"
+            android:text="Home"
+            android:visibility="invisible"
+            android:backgroundTint="@color/red"
+            android:textAllCaps="false"
+            android:textColor="@color/g_blue"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/tvShoppingAddress"
+            app:layout_constraintTop_toBottomOf="@id/tvShoppingAddress" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/address_rv_item"/>
+<!--        <FrameLayout-->
+<!--            android:id="@+id/rvFrame"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline1"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvShoppingAddress">-->
 
-            <ProgressBar
-                android:id="@+id/progressbarAddress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/g_blue"
-                android:visibility="gone"/>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rvAddress"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                tools:listitem="@layout/address_rv_item"/>-->
 
-        </FrameLayout>
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressbarAddress"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:indeterminateTint="@color/g_blue"-->
+<!--                android:visibility="gone"/>-->
+
+<!--        </FrameLayout>-->
 
         <View
             android:id="@+id/middleLine"
@@ -141,7 +159,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/white_background"
-            app:layout_constraintTop_toBottomOf="@id/rvFrame"
+            app:layout_constraintTop_toBottomOf="@id/buttonAddress"
             app:layout_constraintStart_toStartOf="@id/guideline1"
             app:layout_constraintEnd_toEndOf="@id/guideline2"
             android:backgroundTint="@color/g_blue_gray200"

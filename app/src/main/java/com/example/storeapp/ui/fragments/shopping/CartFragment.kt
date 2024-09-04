@@ -48,7 +48,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             if (cartAdapter.differ.currentList.size != 0  ){
 
             }
-            val action = CartFragmentDirections.actionCartFragmentToBillingFragment(cartAdapter.differ.currentList.toTypedArray(),total)
+
+            val action = CartFragmentDirections.actionCartFragmentToAddressFragment(cartAdapter.differ.currentList.toTypedArray(), totalPrice = total)
 
             findNavController().navigate(action)
         }

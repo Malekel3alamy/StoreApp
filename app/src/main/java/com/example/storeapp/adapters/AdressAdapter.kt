@@ -18,17 +18,10 @@ import com.example.storeapp.models.ProductAddress
 
 class AddressAdapter :Adapter<AddressAdapter.AddressViewHolder>() {
     class AddressViewHolder ( val binding : AddressRvItemBinding) : ViewHolder(binding.root){
-          fun bind(address: ProductAddress,isSelected  :Boolean){
+          fun bind(address: ProductAddress){
               binding.apply {
                   buttonAddress.text = address.addressTitle
-                  if (isSelected){
-                      buttonAddress.background = ColorDrawable(itemView.context.resources.getColor(R.color.g_blue))
-                      buttonAddress.setTextColor(itemView.context.resources.getColor(R.color.g_white))
-                  }else{
-                      buttonAddress.background = ColorDrawable(itemView.context.resources.getColor(R.color.g_white))
-                      buttonAddress.setTextColor(itemView.context.resources.getColor(R.color.g_gray700))
 
-                  }
               }
           }
 
@@ -45,7 +38,7 @@ class AddressAdapter :Adapter<AddressAdapter.AddressViewHolder>() {
     }
 
     val differ = AsyncListDiffer(this,differCallBAck)
-    var onClick : ((ProductAddress) -> Unit)? = null
+    var onClick : ((ProductAddress,Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressViewHolder {
         return AddressViewHolder(
@@ -58,23 +51,34 @@ class AddressAdapter :Adapter<AddressAdapter.AddressViewHolder>() {
         return differ.currentList.size
     }
 
-    var selectedAddress = -1
+    var selectedAddress = false
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
           val address = differ.currentList[position]
         Log.d("Address",address.addressTitle)
 
 
-        holder.bind(address,selectedAddress==position)
-        selectedAddress = position
+        holder.bind(address)
+
 
 
         holder.binding.buttonAddress.setOnClickListener {
-           if (selectedAddress >= 0){
-               notifyItemChanged(position)
-               selectedAddress = holder.adapterPosition
-               notifyItemChanged(position)
-               onClick?.invoke(address)
+           if (selectedAddress ){
+               //it.background = ColorDrawable(holder.itemView.context.resources.getColor(R.color.g_white))
+               holder.binding.buttonAddress.setBackgroundColor(holder.itemView.resources.getColor(R.color.red))
+               holder.binding.buttonAddress.setTextColor(holder.itemView.context.resources.getColor(R.color.g_blue))
+               selectedAddress =false
+               onClick?.invoke(address,selectedAddress)
 
+
+           }else{
+
+              // notifyItemChanged(position)
+               //= ColorDrawable(holder.itemView.context.resources.getColor(R.color.g_blue))
+               holder.binding.buttonAddress.setBackgroundColor(holder.itemView.resources.getColor(R.color.g_blue))
+               holder.binding.buttonAddress.setTextColor(holder.itemView.context.resources.getColor(R.color.g_white))
+               selectedAddress = true
+             //  notifyItemChanged(position)
+               onClick?.invoke(address,selectedAddress)
            }
 
         }

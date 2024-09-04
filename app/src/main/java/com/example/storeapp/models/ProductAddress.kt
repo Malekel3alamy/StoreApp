@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ProductAddress(
-    val addressTitle : String ,
+    val addressTitle : String,
     val userFullName : String ,
     val street : String ,
     val phoneNumber : String ,

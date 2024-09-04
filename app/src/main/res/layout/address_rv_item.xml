@@ -5,20 +5,23 @@
     android:layout_marginEnd="8dp"
     >
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonAddress"
         android:layout_width="110dp"
-        android:layout_height="40dp"
-        android:background="@drawable/unselected_button_background"
+        android:layout_height="45dp"
+        app:cornerRadius="6dp"
         android:clickable="true"
         android:fontFamily="@font/poppins_thin"
         android:text="Home"
+        android:backgroundTint="@color/red"
         android:textAllCaps="false"
-        android:textColor="@color/g_gray700"
+        android:textColor="@color/g_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

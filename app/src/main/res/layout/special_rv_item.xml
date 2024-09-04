@@ -5,7 +5,7 @@
     android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="5dp"
-    app:cardCornerRadius="15dp"
+    app:cardCornerRadius="7dp"
     app:cardBackgroundColor="@color/g_card_background"
     app:cardUseCompatPadding="true"
     >
@@ -14,11 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageSpecialProduct"
             android:layout_width="110dp"
             android:layout_height="100dp"
-
+            android:background="@color/red"
+            android:scaleType="fitXY"
+            app:shapeAppearanceOverlay="@style/ImageRoundedCorners"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="3dp"
@@ -52,41 +54,7 @@
             android:textSize="12sp"
             android:fontFamily="@font/sf_pro_display"/>
 
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/btn_add_to_cart"-->
-<!--            android:layout_width="77dp"-->
-<!--            android:layout_height="25dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:background="@drawable/blue_background"-->
-<!--            android:fontFamily="@font/poppins_light"-->
-<!--            android:text="Add to cart"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="10sp"-->
-<!--            android:textStyle="bold"-->
-<!--            app:layout_constraintStart_toStartOf="@id/tv_ad_price"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
 
-<!--            app:layout_constraintTop_toBottomOf="@id/tv_ad_price" />-->
-
-        <LinearLayout
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/icon_background"
-            android:orientation="vertical">
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_favorite"
-                android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:padding="5dp"
-
-                />
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

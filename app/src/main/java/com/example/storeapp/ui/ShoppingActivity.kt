@@ -1,6 +1,7 @@
 package com.example.storeapp.ui
 
 import android.os.Bundle
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -54,5 +55,8 @@ class ShoppingActivity : AppCompatActivity() {
         binding.shoppingBottomNavView.setupWithNavController(navController)
 
 
+
     }
+
+
 }

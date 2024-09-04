@@ -71,7 +71,7 @@ private val profileViewModel by viewModels<ProfileViewModel>()
         }
 
         binding.linearBilling.setOnClickListener {
-            val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment2(
+            val action = ProfileFragmentDirections.actionProfileFragmentToBillingFragment2(null,
                 emptyArray(),0f
             )
 
