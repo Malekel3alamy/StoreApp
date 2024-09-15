@@ -2,6 +2,7 @@ package com.example.storeapp.ui.fragments.categories
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.storeapp.R
 import com.example.storeapp.adapters.BestDealsAdapter
 import com.example.storeapp.adapters.BestProductsAdapter
@@ -58,6 +60,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                        when(it){
                            is Resources.Error -> {
                                hideLoading()
+                               Log.d("MainCategoryFragment",it.message.toString())
                                Toast.makeText(requireContext(),"Sorry Couldn't Fetch Data ",Toast.LENGTH_LONG).show()
                            }
                            is Resources.Loading -> {
@@ -131,11 +134,12 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                         showLoading()
                     }
                     is Resources.Success -> {
-                        hideLoading()
+                      hideLoading()
                         if(it.data!!.isNotEmpty()){
                             bestProductsAdapter.differ.submitList(it.data)
                             Log.d("MainCategoryFragment",it.data.size.toString())
                         }
+
                     }
                     is Resources.UnSpecified -> Unit
                 }
@@ -150,7 +154,8 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
         }
 
-
+        // handle Horizontal RecyclerView  Scroll
+        handleHorizontalScroll()
 
     }
 
@@ -177,13 +182,41 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
     }
 
-
     private fun setupBestProductsRV() {
         binding.rvBestProducts.apply {
             adapter =bestProductsAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
         }
 
+    }
+
+    private fun handleHorizontalScroll(){
+        val listener = object : RecyclerView.OnItemTouchListener {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                val action = e.action
+                if (rv.canScrollHorizontally(RecyclerView.FOCUS_FORWARD)) {
+                    when (action) {
+                        MotionEvent.ACTION_MOVE -> rv.parent
+                            .requestDisallowInterceptTouchEvent(true)
+                    }
+                    return false
+                }
+                else {
+                    when (action) {
+                        MotionEvent.ACTION_MOVE -> rv.parent
+                            .requestDisallowInterceptTouchEvent(false)
+                    }
+                    rv.removeOnItemTouchListener(this)
+                    return true
+                }
+            }
+
+            override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+            override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
+        }
+
+      binding.rvSpecialProducts.addOnItemTouchListener(listener)
+      binding.rvBestDeals.addOnItemTouchListener(listener)
     }
 
 

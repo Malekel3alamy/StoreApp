@@ -63,22 +63,18 @@
         android:name="com.example.storeapp.ui.fragments.shopping.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
-        <action
-            android:id="@+id/action_cartFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/cartFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+
+
         <action
             android:id="@+id/action_cartFragment_to_productInfoFragment"
             app:destination="@id/productInfoFragment" />
-        <action
-            android:id="@+id/action_cartFragment_to_billingFragment"
-            app:destination="@id/billingFragment" />
+
         <action
             android:id="@+id/action_cartFragment_to_addressFragment"
             app:destination="@id/addressFragment" />
+        <argument
+            android:name="BillingFragment"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/productInfoFragment"
@@ -100,21 +96,19 @@
             app:argType="com.example.storeapp.models.ProductAddress"
             app:nullable="true"
             />
-        <action
-            android:id="@+id/action_billingFragment_to_addressFragment"
-            app:destination="@id/addressFragment"
-            />
         <argument
             android:name="totalPrice"
             app:argType="float"
             android:defaultValue="0.0"
-
             />
         <argument
             android:name="cartProducts"
             app:argType="com.example.storeapp.models.CartProduct[]"
 
             />
+        <action
+            android:id="@+id/action_billingFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
 
     </fragment>
     <fragment
@@ -126,7 +120,6 @@
         <action
             android:id="@+id/action_addressFragment_to_billingFragment"
             app:destination="@id/billingFragment"
-            app:popUpTo="@id/billingFragment"
             app:popUpToInclusive="false" />
         <argument
             android:name="totalPrice"
@@ -139,6 +132,9 @@
             app:argType="com.example.storeapp.models.CartProduct[]"
 
             />
+        <action
+            android:id="@+id/action_addressFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
 
 
     </fragment>

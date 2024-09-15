@@ -74,7 +74,7 @@ private val baseCategoryViewModel by viewModels<BaseCategoryViewModel>()
         }
     }
 
-    fun setupRecyclerView(){
+   private fun setupRecyclerView(){
         binding.chairsRV.adapter = specialProductsAdapter
         binding.chairsRV.layoutManager = LinearLayoutManager(requireContext())
     }

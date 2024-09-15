@@ -51,21 +51,26 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cartProducts = args.cartProducts!!.toList()
-        totalPrice = args.totalPrice
-        productAddress=args.Address
-        Log.d("Price",totalPrice.toString())
 
 
 
     }
+
+    private fun getCartArguments() {
+
+        cartProducts = args.cartProducts!!.toList()
+        totalPrice = args.totalPrice
+        productAddress=args.Address
+        Log.d("Price",totalPrice.toString())
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBillingBinding.bind(view)
 
         setupBillingProductsRv()
        // setupAddressRv()
-
+        getCartArguments()
 
 
             if (productAddress!= null){
@@ -82,24 +87,7 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
             findNavController().navigate(R.id.cartFragment)
         }
 
-     /*   lifecycleScope.launch {
-            billingViewModel..collectLatest {
-                when(it){
-                    is Resources.Error -> {
-                        Toast.makeText(requireContext(),"Error " + it.message,Toast.LENGTH_LONG).show()
-                    }
-                    is Resources.Loading -> {
-                    }
-                    is Resources.Success -> {
-                     //   addressAdapter.differ.submitList(it.data)
-                        binding.buttonAddress.visibility = View.VISIBLE
-                        binding.buttonAddress.setText(it.data.)
-                    }
-                    is Resources.UnSpecified -> Unit
-                }
-            }
 
-        }*/
 
         lifecycleScope.launch {
             ordersViewModel.order.collectLatest {
@@ -115,7 +103,6 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
                         binding.placeOrderPR.visibility = View.GONE
                         Toast.makeText(requireContext()," You Products Have Been Ordered Successfully ",Toast.LENGTH_LONG).show()
 
-                        findNavController().navigateUp()
                     }
                     is Resources.UnSpecified -> Unit
                 }
@@ -124,16 +111,7 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         billingProductsAdapter.differ.submitList(cartProducts)
         binding.tvTotalPrice.text =   totalPrice.toString()
 
-     /*   addressAdapter.onClick= {address,state, ->
-            if (state){
-                productAddress = address
-                productAddressTitle = address.addressTitle
-            }else{
-                productAddress = null
 
-            }
-
-        }*/
         binding.buttonPlaceOrder.setOnClickListener {
 
             if (productAddress == null  && totalPrice!= 0f && cartProducts != emptyList<CartProduct>() ){
@@ -154,6 +132,10 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
 
                 val order = Order(OrderStatus.Ordered.orderStatus,totalPrice,cartProducts, productAddress!!)
                 ordersViewModel.placeOrder(order)
+
+
+              //  val action = BillingFragmentDirections.actionBillingFragmentToCartFragment(true)
+             findNavController().navigate(R.id.action_billingFragment_to_cartFragment)
                 dialog.dismiss()
 
             }
@@ -165,10 +147,7 @@ class BillingFragment : Fragment(R.layout.fragment_billing) {
         alertDialog.show()
     }
 
-  /*  private fun setupAddressRv() {
-        binding.rvAddress.adapter = addressAdapter
-        binding.rvAddress.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
-    }*/
+
 
     private fun setupBillingProductsRv() {
         binding.rvProducts.adapter = billingProductsAdapter

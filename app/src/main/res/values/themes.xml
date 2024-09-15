@@ -1,9 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.StoreApp" parent="Theme.Material3.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
          Customize your light theme here.
          <item name="colorPrimary">@color/g_gray500</item>
     </style>
 
-    <style name="Theme.StoreApp" parent="Base.Theme.StoreApp" />
+    <style name="Theme.StoreApp" parent="AppTheme" />
+
+    <style name="myCustomTabLayout" parent="Widget.Material3.TabLayout">
+        <item name="tabIndicator">@drawable/tab_indicator_bg</item>
+
+    </style>
+
+
 </resources>

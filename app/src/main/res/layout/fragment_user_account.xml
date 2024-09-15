@@ -27,8 +27,8 @@
 
                 <ImageView
                     android:id="@+id/imageCloseUserAccount"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_close"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -41,10 +41,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="25dp"
-                    android:fontFamily="@font/poppins_light"
+                    android:fontFamily="@font/alata"
+
                     android:text="My account"
                     android:textColor="@color/black"
                     android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/imageCloseUserAccount"
                     app:layout_constraintStart_toStartOf="@id/imageCloseUserAccount"
                     app:layout_constraintTop_toTopOf="@id/imageCloseUserAccount" />

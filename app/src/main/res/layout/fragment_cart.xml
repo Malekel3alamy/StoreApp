@@ -135,7 +135,6 @@
             android:id="@+id/btnCheckOut"
             android:layout_width="0dp"
             android:layout_height="60dp"
-
             android:layout_marginBottom="20dp"
             android:layout_marginTop="45dp"
             android:background="@drawable/blue_background"
@@ -147,8 +146,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/leftGuideLine"
             app:layout_constraintEnd_toEndOf="@id/rightGuideLine"
-            app:layout_constraintTop_toBottomOf="@id/totalBoxContainer" />
-
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

@@ -39,13 +39,21 @@
     <item name="android:textSize">10sp</item>
     <item name="fontFamily">@font/sf_pro_display</item>
     </style>
+
+    <style name="tabText">
+        <item name="android:textColor">@color/g_gray700</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:background">@color/g_gray700</item>
+
+        <item name="fontFamily">@font/sf_pro_display</item>
+    </style>
     <style name="ImageRoundedCorners">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">0dp</item>
-        <item name="cornerSizeTopLeft">8dp</item>
-        <item name="cornerSizeTopRight">8dp</item>
-        <item name="cornerSizeBottomLeft">8dp</item>
-        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSizeTopLeft">5dp</item>
+        <item name="cornerSizeTopRight">5dp</item>
+        <item name="cornerSizeBottomLeft">5dp</item>
+        <item name="cornerSizeBottomRight">5dp</item>
     </style>
 
     <style name="CutCorners" >

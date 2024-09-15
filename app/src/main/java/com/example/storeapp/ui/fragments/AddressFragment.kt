@@ -52,24 +52,10 @@ class AddressFragment : Fragment(R.layout.fragment_address) {
                         cartProducts = cartProducts.toTypedArray(), totalPrice = totalPrice)
                     findNavController().navigate(action)
                 }
+            }
 
-
-          /*      lifecycleScope.launch {
-                    addressViewModel.inputError.collect{
-                        if(it.isNotEmpty()){
-                            Toast.makeText(requireContext(),it,Toast.LENGTH_LONG).show()
-
-                        }
-                    }
-
-                }*/
-
-
-
-                imageAddressClose.setOnClickListener {
-                    findNavController().navigateUp()
-                }
-
+            imageAddressClose.setOnClickListener {
+                findNavController().navigate(R.id.action_addressFragment_to_cartFragment)
             }
 
         }

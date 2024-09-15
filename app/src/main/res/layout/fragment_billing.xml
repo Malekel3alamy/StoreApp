@@ -23,9 +23,9 @@
                 android:layout_height="match_parent">
                 <ImageView
                     android:id="@+id/imageCloseBilling"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/img_1"
                     android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -239,12 +239,11 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/mediumButtonHeight"
             style="@style/blueButtonStyle"
-            app:layout_constraintTop_toBottomOf="@id/totalBoxContainer"
             app:layout_constraintStart_toStartOf="@id/totalBoxContainer"
             app:layout_constraintEnd_toEndOf="@id/totalBoxContainer"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="45dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:text="Place Order"
             />
 <ProgressBar

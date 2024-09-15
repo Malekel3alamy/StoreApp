@@ -34,6 +34,11 @@ class ProductInfoFragment : Fragment(R.layout.fragment_product_info) {
              hideNavView()
              hideLoading()
 
+
+        binding.backImage.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
         if (arguments!= null){
 
              product = requireArguments().getParcelable<Product>("Product")!!

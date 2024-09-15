@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storeapp.R
 import com.example.storeapp.adapters.CartAdapter
@@ -28,13 +29,16 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class CartFragment : Fragment(R.layout.fragment_cart) {
     lateinit var binding : FragmentCartBinding
     private val cartViewModel by viewModels<CartViewModel>()
     private val cartAdapter = CartAdapter()
+    private val args by navArgs<CartFragmentArgs>()
 
     private var total = 0f
+
 
 
 
@@ -44,13 +48,13 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         showNavView()
         setupRecycler()
 
+
         binding.btnCheckOut.setOnClickListener {
             if (cartAdapter.differ.currentList.size != 0  ){
 
             }
 
             val action = CartFragmentDirections.actionCartFragmentToAddressFragment(cartAdapter.differ.currentList.toTypedArray(), totalPrice = total)
-
             findNavController().navigate(action)
         }
 

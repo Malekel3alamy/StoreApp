@@ -2,6 +2,7 @@ package com.example.storeapp.ui.fragments.shopping
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.storeapp.R
@@ -14,6 +15,7 @@ import com.example.storeapp.ui.fragments.categories.FurnitureFragment
 import com.example.storeapp.ui.fragments.categories.MainCategoryFragment
 import com.example.storeapp.ui.fragments.categories.TableFragment
 import com.example.storeapp.utils.showNavView
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -35,9 +37,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             AccessoryFragment()
         )
 
+        val tablayout = view.findViewById<TabLayout>(R.id.tableLayout)
+
         val homeViewPagerAdapter = HomeViewPagerAdapter(categoriesFragments,childFragmentManager,lifecycle)
         binding.viewPagerHome.adapter = homeViewPagerAdapter
-        TabLayoutMediator(binding.tableLayout,binding.viewPagerHome){tab,position ->
+        TabLayoutMediator(tablayout,binding.viewPagerHome){tab,position ->
               when(position){
                   0 -> tab.text = "Home"
                   1 -> tab.text = "Chair"

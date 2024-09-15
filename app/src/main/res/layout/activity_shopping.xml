@@ -8,11 +8,11 @@
     android:background="@color/g_line"
     tools:context=".ui.ShoppingActivity">
 
+
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:id="@+id/f1Fragment"
-        android:layout_marginBottom="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -28,20 +28,27 @@
             app:navGraph="@navigation/shopping_nav_graph" />
     </FrameLayout>
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="68dp"
+        android:paddingTop="10dp"
+        app:itemIconGravity="top"
+        android:layout_margin="5dp"
+        app:itemGravity="top_center"
+        android:pointerIcon="text"
+        app:itemActiveIndicatorStyle="@color/white"
+
         android:id="@+id/shoppingBottomNavView"
-        app:shapeAppearanceOverlay="@style/CutCorners"
         android:background="@drawable/bottom_navigation_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/shopping_item_menu"
-
+        tools:context=".ui.fragments.ProductInfoFragment"
         app:itemIconTint="@drawable/bottom_nav_item_background"
-        android:textAlignment="center"
-        app:labelVisibilityMode="labeled"
+        android:textAlignment="gravity"
+        app:labelVisibilityMode="unlabeled"
         app:itemRippleColor="@color/g_white"
           android:fadeScrollbars="false"
         />

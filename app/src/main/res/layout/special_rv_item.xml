@@ -16,9 +16,9 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageSpecialProduct"
-            android:layout_width="110dp"
-            android:layout_height="100dp"
-            android:background="@color/red"
+            android:layout_width="120dp"
+            android:layout_height="115dp"
+            android:background="@color/g_gray"
             android:scaleType="fitXY"
             app:shapeAppearanceOverlay="@style/ImageRoundedCorners"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,13 +44,38 @@
 
         <TextView
             android:id="@+id/tv_ad_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$1600"
+            app:layout_constraintStart_toStartOf="@id/tv_ad_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_ad_name"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/sf_pro_display"/>
+
+        <View
+            android:id="@+id/old_price_line_view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/g_gray500"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/tv_ad_price"
+            app:layout_constraintEnd_toEndOf="@id/tv_ad_price"
+            app:layout_constraintTop_toTopOf="@id/tv_ad_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ad_price"
+            />
+
+        <TextView
+            android:id="@+id/tv_ad_new_price"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:text="$1600"
             android:padding="10dp"
-            app:layout_constraintStart_toStartOf="@id/tv_ad_name"
-            app:layout_constraintTop_toBottomOf="@id/tv_ad_name"
+            app:layout_constraintStart_toEndOf="@id/tv_ad_price"
+            app:layout_constraintTop_toTopOf="@id/tv_ad_price"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ad_price"
             android:textColor="@color/black"
+            android:layout_marginStart="5dp"
             android:textSize="12sp"
             android:fontFamily="@font/sf_pro_display"/>
 
