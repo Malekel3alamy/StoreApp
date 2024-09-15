@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -35,6 +36,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
     private val bestProductsAdapter = BestProductsAdapter()
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,23 +53,24 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
 
 
-
-        // Special Products
+        // Setup Recyclers View
         setupSpecialProductRV()
-        mainCategoryViewModel.getSpecialProducts()
+        setupBestDealsRV()
+        setupBestProductsRV()
+
+
+
         lifecycleScope.launch {
             mainCategoryViewModel.specialProducts.collect{
                        when(it){
                            is Resources.Error -> {
                                hideLoading()
-                               Log.d("MainCategoryFragment",it.message.toString())
                                Toast.makeText(requireContext(),"Sorry Couldn't Fetch Data ",Toast.LENGTH_LONG).show()
                            }
                            is Resources.Loading -> {
                                showLoading()
                            }
                            is Resources.Success -> {
-                               hideLoading()
                                if(it.data!!.isNotEmpty()){
                                    specialProductsAdapter.differ.submitList(it.data)
                                }
@@ -88,21 +91,16 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
 
         // Best Deals
-
-        setupBestDealsRV()
-        mainCategoryViewModel.getBestDeals()
         lifecycleScope.launch {
             mainCategoryViewModel.bestDeals.collect{
                 when(it){
                     is Resources.Error -> {
-                        hideLoading()
                         Toast.makeText(requireContext(),"Sorry Couldn't Fetch Data ",Toast.LENGTH_LONG).show()
                     }
                     is Resources.Loading -> {
-                        showLoading()
+
                     }
                     is Resources.Success -> {
-                        hideLoading()
                         if(it.data!!.isNotEmpty()){
                             bestDealsAdapter.differ.submitList(it.data)
                         }
@@ -120,19 +118,13 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
         }
 
         // Best Products
-
-        setupBestProductsRV()
-        mainCategoryViewModel.getBestProducts()
         lifecycleScope.launch {
             mainCategoryViewModel.bestProducts.collect{
                 when(it){
                     is Resources.Error -> {
-                        hideLoading()
                         Toast.makeText(requireContext(),"Sorry Couldn't Fetch Data ",Toast.LENGTH_LONG).show()
                     }
-                    is Resources.Loading -> {
-                        showLoading()
-                    }
+                    is Resources.Loading -> { }
                     is Resources.Success -> {
                       hideLoading()
                         if(it.data!!.isNotEmpty()){
@@ -160,10 +152,15 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
     }
 
     private fun hideLoading() {
-        binding.mainProgressBar.visibility =View.INVISIBLE
+        binding.mainCategoryLayout.visibility= View.VISIBLE
+        binding.mainCategoryShimmerLayout.stopShimmer()
+        binding.mainCategoryShimmerLayout.isVisible = false
     }
     private fun showLoading() {
-        binding.mainProgressBar.visibility =View.VISIBLE
+
+        binding.mainCategoryLayout.visibility= View.INVISIBLE
+        binding.mainCategoryShimmerLayout.startShimmer()
+        binding.mainCategoryShimmerLayout.isVisible = true
     }
 
     private fun setupSpecialProductRV() {
@@ -175,11 +172,11 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
     }
 
     private fun setupBestDealsRV() {
+
         binding.rvBestDeals.apply {
             adapter =bestDealsAdapter
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         }
-
     }
 
     private fun setupBestProductsRV() {
@@ -187,7 +184,6 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
             adapter =bestProductsAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
         }
-
     }
 
     private fun handleHorizontalScroll(){

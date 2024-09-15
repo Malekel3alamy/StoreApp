@@ -27,6 +27,11 @@ class MainCategoryViewModel @Inject constructor(private val firestore : Firebase
     val bestProducts =_bestProducts as SharedFlow<Resources<List<Product>>>
 
 
+    init {
+        getSpecialProducts()
+        getBestDeals()
+        getBestProducts()
+    }
     fun getSpecialProducts() = viewModelScope.launch {
         firestore.collection("Products")
             .whereEqualTo("category","SpecialProduct")

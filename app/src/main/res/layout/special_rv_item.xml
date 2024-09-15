@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
-    android:layout_height="150dp"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="5dp"
     app:cardCornerRadius="7dp"
+    android:layout_marginEnd="7dp"
+    android:layout_marginBottom="7dp"
     app:cardBackgroundColor="@color/g_card_background"
-    app:cardUseCompatPadding="true"
+
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,17 +25,21 @@
             app:shapeAppearanceOverlay="@style/ImageRoundedCorners"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="3dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
              />
 
         <TextView
             android:id="@+id/tv_ad_name"
-            android:layout_width="140dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Scotch Premium"
             android:maxLines="2"
-            android:padding="10dp"
+            android:padding="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="5dp"
             app:layout_constraintStart_toEndOf="@id/imageSpecialProduct"
             app:layout_constraintTop_toTopOf="@id/imageSpecialProduct"
             android:layout_marginStart="8dp"

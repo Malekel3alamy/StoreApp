@@ -14,10 +14,91 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/mainCategoryShimmerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        android:id="@+id/specialProductShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        layout="@layout/special_rv_item_place_holder"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tvBestDealsShimmer"
+                        />
+                    <TextView
+                        android:id="@+id/tvBestDealsShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_thin"
+                        android:text="Best Deals"
+                        android:textSize="16sp"
+                        android:layout_marginStart="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/specialProductShimmer" />
+                    <include
+                        android:id="@+id/bestDealsPlaceHolderShimmer"
+                        android:layout_marginStart="15dp"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tvBestDealsShimmer"
+                        app:layout_constraintStart_toStartOf="parent"
+                        layout="@layout/best_deals_rv_item_place_holder"/>
+
+                    <TextView
+                        android:id="@+id/tvBestProductsShimmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_thin"
+                        android:text="Best Products"
+                        android:textSize="16sp"
+                        android:layout_marginStart="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bestDealsPlaceHolderShimmer" />
+                   <LinearLayout
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toBottomOf="@id/tvBestProductsShimmer"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="15dp"
+                       android:layout_marginTop="50dp"
+                       android:orientation="horizontal">
+                       <include
+                           android:layout_marginEnd="15dp"
+                           android:layout_height="wrap_content"
+                           android:layout_width="wrap_content"
+                           layout="@layout/product_rv_item_place_holder"
+                           />
+                       <include
+                           app:layout_constraintStart_toStartOf="parent"
+                           android:layout_height="wrap_content"
+                           android:layout_width="wrap_content"
+                           layout="@layout/product_rv_item_place_holder"
+                           />
+                   </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
            <androidx.constraintlayout.widget.ConstraintLayout
+               android:id="@+id/mainCategoryLayout"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:visibility="visible"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="parent"
@@ -30,15 +111,16 @@
                    app:layout_constraintBottom_toBottomOf="parent"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
+                   android:visibility="invisible"
                    app:layout_constraintTop_toTopOf="parent" />
 
                <androidx.recyclerview.widget.RecyclerView
                    android:id="@+id/rvSpecialProducts"
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_margin="5dp"
                    tools:itemCount="1"
-                   android:layout_marginTop="15dp"
+                   android:layout_marginTop="10dp"
+                   android:layout_marginStart="10dp"
                    app:layout_constraintBottom_toTopOf="@id/tvBestDeals"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintHorizontal_bias="0.555"
@@ -144,19 +226,7 @@
                    app:layout_constraintTop_toBottomOf="@id/tvBestProducts" />
 
            </androidx.constraintlayout.widget.ConstraintLayout>
-<!--            <androidx.constraintlayout.widget.Guideline-->
-<!--                android:id="@+id/guideline1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layout_constraintGuide_percent="0.30" />-->
 
-<!--            <androidx.constraintlayout.widget.Guideline-->
-<!--                android:id="@+id/guideline2"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                app:layout_constraintGuide_percent="0.65" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
