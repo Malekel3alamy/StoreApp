@@ -22,6 +22,7 @@ import com.example.storeapp.databinding.FragmentMainCategoryBinding
 import com.example.storeapp.utils.Resources
 import com.example.storeapp.viewmodel.MainCategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -51,12 +52,13 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainCategoryBinding.bind(view)
 
-
+        showLoading()
 
         // Setup Recyclers View
         setupSpecialProductRV()
         setupBestDealsRV()
         setupBestProductsRV()
+
 
 
 
@@ -68,9 +70,10 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                                Toast.makeText(requireContext(),"Sorry Couldn't Fetch Data ",Toast.LENGTH_LONG).show()
                            }
                            is Resources.Loading -> {
-                               showLoading()
+                              showLoading()
                            }
                            is Resources.Success -> {
+                                 hideLoading()
                                if(it.data!!.isNotEmpty()){
                                    specialProductsAdapter.differ.submitList(it.data)
                                }
@@ -101,6 +104,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
                     }
                     is Resources.Success -> {
+
                         if(it.data!!.isNotEmpty()){
                             bestDealsAdapter.differ.submitList(it.data)
                         }
@@ -126,7 +130,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
                     }
                     is Resources.Loading -> { }
                     is Resources.Success -> {
-                      hideLoading()
+                        hideLoading()
                         if(it.data!!.isNotEmpty()){
                             bestProductsAdapter.differ.submitList(it.data)
                             Log.d("MainCategoryFragment",it.data.size.toString())
@@ -152,9 +156,9 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
     }
 
     private fun hideLoading() {
-        binding.mainCategoryLayout.visibility= View.VISIBLE
-        binding.mainCategoryShimmerLayout.stopShimmer()
         binding.mainCategoryShimmerLayout.isVisible = false
+        binding.mainCategoryLayout.visibility= View.VISIBLE
+
     }
     private fun showLoading() {
 
@@ -184,6 +188,7 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
             adapter =bestProductsAdapter
             layoutManager = GridLayoutManager(requireContext(),2)
         }
+
     }
 
     private fun handleHorizontalScroll(){
@@ -213,6 +218,15 @@ private val  specialProductsAdapter = SpecialProductsAdapter()
 
       binding.rvSpecialProducts.addOnItemTouchListener(listener)
       binding.rvBestDeals.addOnItemTouchListener(listener)
+    }
+
+    override fun onResume() {
+        super.onResume()
+         lifecycleScope.launch {
+             delay(1000L)
+             hideLoading()
+         }
+
     }
 
 

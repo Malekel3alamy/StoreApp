@@ -32,7 +32,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSearchBinding.bind(view)
         showNavView()
-        showBG()
+
         hidePR()
 
         setupSearchRecyclerView()
@@ -58,21 +58,19 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                     when(it){
                                         is Resources.Error -> {
                                             hidePR()
-                                            showBG()
                                             Toast.makeText(requireContext()," Error : ${it.message}",Toast.LENGTH_SHORT).show()
                                         }
                                         is Resources.Loading -> {
                                             showPR()
-                                            hideBG()
+
                                         }
                                         is Resources.Success -> {
                                             hidePR()
-                                            hideBG()
                                             searchAdapter.differ.submitList(it.data)
 
                                         }
                                         is Resources.UnSpecified -> {
-                                            showBG()
+
                                             hidePR()
                                         }
                                     }
@@ -85,22 +83,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         })
     }
-    private fun showBG(){
-        binding.searchBG.visibility = View.VISIBLE
-        binding.searchRV.visibility = View.INVISIBLE
-    }
 
-    private fun hideBG(){
-        binding.searchBG.visibility = View.INVISIBLE
-        binding.searchRV.visibility = View.VISIBLE
-    }
+
+
     private fun  showPR(){
-
-  binding.searchPR.visibility = View.VISIBLE
+       binding.searchBG.visibility = View.INVISIBLE
+        binding.searchPR.visibility = View.VISIBLE
+        binding.searchRV.visibility = View.VISIBLE
 
     }
     private fun  hidePR(){
-        binding.searchBG.visibility = View.INVISIBLE
         binding.searchPR.visibility = View.INVISIBLE
     }
 
