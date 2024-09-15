@@ -7,10 +7,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id ("kotlin-kapt")
     id ("com.google.gms.google-services")
-
     id("com.google.devtools.ksp")
-
-
 }
 
 
@@ -56,7 +53,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+   // implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
@@ -88,7 +85,12 @@ dependencies {
 
     implementation ("com.google.android.material:material:1.12.0")
 
+    // Shimmer library
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
 
+    implementation(libs.material.v1130alpha05)
+
+    implementation ("com.google.android.material:material:1.12.0")
 
 }
 // Allow references to generated code
