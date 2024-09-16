@@ -7,7 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.shopping.SearchFragment">
 
-
+    <ImageView
+        android:id="@+id/imageCloseSearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/img_1"
+        android:scaleType="centerInside"
+        android:layout_margin="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
     <EditText
         android:id="@+id/search_edit_text"
         android:layout_width="match_parent"

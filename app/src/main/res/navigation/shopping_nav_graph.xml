@@ -57,6 +57,9 @@
             android:id="@+id/action_searchFragment_to_cartFragment"
             app:destination="@id/cartFragment"
             app:popUpTo="@id/searchFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_productInfoFragment"
+            app:destination="@id/productInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

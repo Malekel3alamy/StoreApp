@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storeapp.R
 import com.example.storeapp.adapters.SpecialProductsAdapter
@@ -82,6 +83,16 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
         })
+
+        binding.imageCloseSearch.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        searchAdapter.onItemClickListener {
+            val bundle = Bundle().apply {
+                putParcelable("Product",it)
+            }
+            findNavController().navigate(R.id.action_searchFragment_to_productInfoFragment,bundle)
+        }
     }
 
 

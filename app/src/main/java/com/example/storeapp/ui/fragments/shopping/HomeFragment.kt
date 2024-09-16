@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.example.storeapp.R
 import com.example.storeapp.adapters.HomeViewPagerAdapter
 import com.example.storeapp.databinding.FragmentHomeBinding
@@ -51,5 +52,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                   5 -> tab.text = "Accessories"
               }
         }.attach()
+
+        binding.searchBar.setOnClickListener {
+            findNavController().navigate(R.id.searchFragment)
+        }
     }
 }
