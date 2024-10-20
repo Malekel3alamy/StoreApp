@@ -18,6 +18,7 @@ ensure a clean and maintainable codebase.It provides a seamless shopping experie
   - [Github] https://github.com/Malekel3alamy/ProductsAdder.git
   - this app is to upload my products data and information on firestore 
   
+  **Video Link** : https://www.youtube.com/watch?v=mVZTKt-p_mQ&t=1s
   
 **Technologies Used**
 - Kotlin: For Android development.
